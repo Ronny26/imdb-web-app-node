@@ -1,4 +1,7 @@
 import express from 'express';
-const app = express()
-app.get('/hello', (req, res) => {res.send('Hello World!')})
+import Hello from './hello.js';
+import cors from "cors";
+const app = express();
+app.use(cors());
+Hello(app);
 app.listen(4000)
