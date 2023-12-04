@@ -32,27 +32,30 @@ const findUserById = async (req, res) => {
 const updateUser = async (req, res) => { 
   const dateObject = new Date(req.body.dob);
   console.log("Received DOB:", req.body.dob);
-  req.body.dob = dateObject.toISOString();
-  console.log("Converted DOB:", req.body.dob);
-  const { userId } = req.params;
-  const status = await dao.updateUser(userId, req.body);
-  const currentUser = await dao.findUserById(userId);
-  currentUser.dob = currentUser.dob ? new Date(currentUser.dob).toLocaleDateString() : null;
-  req.session['currentUser'] = currentUser;
-
-  res.json(status);
+  if (!isNaN(dateObject.getTime())) {
+    req.body.dob = dateObject.toISOString();
+    console.log("Converted DOB:", req.body.dob);
+    const { userId } = req.params;
+    const status = await dao.updateUser(userId, req.body);
+    const currentUser = await dao.findUserById(userId);
+    currentUser.dob = currentUser.dob ? new Date(currentUser.dob).toLocaleDateString() : null;
+    req.session['currentUser'] = currentUser;
+  
+    res.json(status);
+  }
+  
 
 };
 const signup = async (req, res) => {
   const user = await dao.findUserByUsername(
       req.body.username);
     if (user) {
-      res.status(400).json(
+      return res.status(400).json(
         { message: "Username already taken" });
     }
     const currentUser = await dao.createUser(req.body);
     req.session['currentUser'] = currentUser;
-    res.json(currentUser);
+    return res.json(currentUser);
 
 };
 const signin = async (req, res) => {
