@@ -4,7 +4,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import UserRoutes from './users/routes.js';
 import session from "express-session";
-
+import ReviewRoutes from './reviews/review_routes.js';
 import "dotenv/config";
 
 const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/kanbas'
@@ -38,5 +38,6 @@ const sessionOptions = {
   );
 app.use(express.json());
 UserRoutes(app);
+ReviewRoutes(app);
 Hello(app);
 app.listen(4000)
