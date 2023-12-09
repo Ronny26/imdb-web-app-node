@@ -1,4 +1,4 @@
-import * as criticReviewDao from "./critic_review_dao";
+import * as criticReviewDao from "./critic_review_dao.js";
 
 function CriticReviewRoutes(app) {
   const createCriticReview = async (req, res) => {

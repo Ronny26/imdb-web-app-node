@@ -1,4 +1,4 @@
-import WatchlistModel from "./watchlist_model";
+import WatchlistModel from "./watchlist_model.js";
 
 export const createWatchlist = (watchlist) => WatchlistModel.create(watchlist);
 
