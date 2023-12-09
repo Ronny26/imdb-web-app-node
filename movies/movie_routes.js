@@ -1,8 +1,10 @@
-import * as movieDao from "./movieDao.js";
+import * as movieDao from "./movie_dao.js";
 
 function MovieRoutes(app) {
   const createMovie = async (req, res) => {
-    const movie = await movieDao.createMovie(req.body);
+    const titles = req.body.titles;
+    console.log("titles body", titles)
+    const movie = await movieDao.createMovie(titles);
     res.json(movie);
   };
 
