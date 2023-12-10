@@ -5,6 +5,6 @@ const ReviewSchema = new mongoose.Schema({
   movieId: { type: mongoose.Schema.Types.ObjectId, ref: "movies", required: true },
   rating: { type: Number, required: true },
   comment: String,
-});
+}, { collection: "reviews" });
 
 export default ReviewSchema;

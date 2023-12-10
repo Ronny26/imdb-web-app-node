@@ -1,4 +1,4 @@
-import criticReviewModel from "./critic_review_model";
+import criticReviewModel from "./critic_review_model.js";
 
 export const createCriticReview = (review) => criticReviewModel.create(review);
 

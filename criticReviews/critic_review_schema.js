@@ -5,6 +5,7 @@ const CriticReviewSchema = new mongoose.Schema({
   movieId: { type: mongoose.Schema.Types.ObjectId, ref: "movies", required: true },
   rating: { type: Number, required: true },
   comment: String,
-});
+  blogLink: String
+}, { collection: "criticReviews" });
 
 export default CriticReviewSchema;

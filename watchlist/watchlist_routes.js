@@ -1,17 +1,37 @@
 import * as watchlistdoa from "./watchlist_dao.js";
-
+import WatchlistModel from "./watchlist_model.js";
+import Movie from "../movies/movie_model.js";
 function WatchlistRoutes(app) {
-  const createWatchlist = async (req, res) => {
-    const watchlist = await watchlistdoa.createWatchlist(req.body);
-    res.json(watchlist);
-  };
+  async function createWatchlist(req, res) {
+    try {
+      const { userId, movieId } = req.body;
+      
+      const existingWatchlist = await WatchlistModel.findOne({ userId, movieId });
+  
+      if (existingWatchlist) {
+        res.json({ message: 'Watchlist entry already exists for this user and movie.' });
+      } else {
+        const movieDetails = await Movie.findById(movieId);
+        console.log("movie details", movieDetails)
+        const watchlist = await watchlistdoa.createWatchlist({
+          userId,
+          movieId,
+          movie: movieDetails, 
+        });
+        console.log("watchlist", watchlist);
+        res.json(watchlist);
+      }
+    } catch (error) {
+      console.error("Error creating watchlist", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
 
   const findWatchlistByUserID = async (req, res) => {
     try {
-      console.log(req.params.userId);
-      const watchlist = await watchlistdoa
-        .findWatchlistByUserID(req.params.userId)
-        .populate("userId");
+      console.log("param id", req.params.userId);
+      const watchlist = await WatchlistModel.find({userId: req.params.userId}).populate("movie");;
+        
       console.log(watchlist);
       res.json(watchlist);
     } catch (error) {
@@ -32,7 +52,7 @@ function WatchlistRoutes(app) {
   };
 
   app.post("/api/watchlist", createWatchlist);
-  app.get("/api/watchlist/user/:userId", findWatchlistByUserID);
+  app.get("/api/watchlist/:userId", findWatchlistByUserID);
   app.put("/api/watchlist/:watchlistId", updateWatchlist);
   app.delete("/api/watchlist/:watchlistId", deleteWatchlist);
 }

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import movieSchema from "./movieSchema.js";
+import movieSchema from "./movie_schema.js";
 
-const Movie = mongoose.model("Movie", movieSchema);
+const Movie = mongoose.model("movies", movieSchema);
 export default Movie;
