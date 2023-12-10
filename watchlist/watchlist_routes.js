@@ -12,12 +12,13 @@ function WatchlistRoutes(app) {
         res.json({ message: 'Watchlist entry already exists for this user and movie.' });
       } else {
         const movieDetails = await Movie.findById(movieId);
+        console.log("movie details", movieDetails)
         const watchlist = await watchlistdoa.createWatchlist({
           userId,
           movieId,
           movie: movieDetails, 
         });
-  
+        console.log("watchlist", watchlist);
         res.json(watchlist);
       }
     } catch (error) {
@@ -29,7 +30,7 @@ function WatchlistRoutes(app) {
   const findWatchlistByUserID = async (req, res) => {
     try {
       console.log("param id", req.params.userId);
-      const watchlist = await WatchlistModel.find({userId: req.params.userId});
+      const watchlist = await WatchlistModel.find({userId: req.params.userId}).populate("movie");;
         
       console.log(watchlist);
       res.json(watchlist);

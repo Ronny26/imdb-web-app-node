@@ -5,9 +5,9 @@ const movieSchema = new mongoose.Schema({
   description: {type: String},
   actors: {type: String},
   rating: {type: Number},
-  primaryImage: 
-    { type: String}
-  
+  primary_image: {
+    url: { type: String}
+  }
 },
 { collection: "movies" });
 
