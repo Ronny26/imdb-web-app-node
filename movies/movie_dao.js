@@ -21,3 +21,5 @@ export const findMovieById = (movieId) => Movie.findById(movieId);
 export const updateMovie = (movieId, movie) =>
   Movie.updateOne({ _id: movieId }, { $set: movie });
 export const deleteMovie = (movieId) => Movie.deleteOne({ _id: movieId });
+
+export const getMovieTitle = (movieTitle) => Movie.findOne({ title: movieTitle });

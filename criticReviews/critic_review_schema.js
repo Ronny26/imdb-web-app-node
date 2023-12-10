@@ -6,6 +6,6 @@ const CriticReviewSchema = new mongoose.Schema({
   rating: { type: Number, required: true },
   comment: String,
   blogLink: String
-});
+}, { collection: "criticReviews" });
 
 export default CriticReviewSchema;
