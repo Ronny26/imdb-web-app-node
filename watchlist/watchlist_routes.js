@@ -2,8 +2,15 @@ import * as watchlistdoa from "./watchlist_dao.js";
 
 function WatchlistRoutes(app) {
   const createWatchlist = async (req, res) => {
-    const watchlist = await watchlistdoa.createWatchlist(req.body);
-    res.json(watchlist);
+    try{
+      console.log("creating");
+      const watchlist = await watchlistdoa.createWatchlist(req.body);
+      res.json(watchlist);
+    }
+    catch {
+      console.error("Error creating watchlist", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
   };
 
   const findWatchlistByUserID = async (req, res) => {
@@ -32,7 +39,7 @@ function WatchlistRoutes(app) {
   };
 
   app.post("/api/watchlist", createWatchlist);
-  app.get("/api/watchlist/user/:userId", findWatchlistByUserID);
+  app.get("/api/watchlist/:userId", findWatchlistByUserID);
   app.put("/api/watchlist/:watchlistId", updateWatchlist);
   app.delete("/api/watchlist/:watchlistId", deleteWatchlist);
 }

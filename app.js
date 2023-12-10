@@ -9,7 +9,7 @@ import CriticReviewRoutes from './criticReviews/critic_review_routes.js';
 import WatchlistRoutes from './watchlist/watchlist_routes.js';
 import "dotenv/config";
 
-const CONNECTION_STRING = 'mongodb://127.0.0.1:27017/kanbas'
+const CONNECTION_STRING = 'mongodb+srv://admin:admin@cluster0.j09aedf.mongodb.net/test?retryWrites=true&w=majority'
 mongoose.connect(CONNECTION_STRING);
 
 
