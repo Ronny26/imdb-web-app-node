@@ -1,6 +1,13 @@
 import * as movieDao from "./movie_dao.js";
 
 function MovieRoutes(app) {
+  const createMovieByAdmin = async (req, res) => {
+    const addedMovie = req.body;
+    // console.log("titles body", addedMovie)
+    const movie = await movieDao.createMovieByAdmin(addedMovie);
+    res.json(movie);
+  };
+
   const createMovie = async (req, res) => {
     const titles = req.body.titles;
     console.log("titles body", titles)
@@ -44,6 +51,7 @@ function MovieRoutes(app) {
   }
   }
 
+  app.post("/api/moviesByAdmin", createMovieByAdmin)
   app.post("/api/movies", createMovie);
   app.get("/api/movies", findAllMovies);
   app.get("/api/movies/:movieId", findMovieById);
