@@ -18,14 +18,14 @@ export const createMovie = (titles) => {
 };
 
 export const createMovieByAdmin = (movie) => {
-  // console.log("movie", movie);
-  const createdMovies = [];
-
-    const newMovie = Movie.create(movie);
-    createdMovies.push(newMovie);
-
-  return createdMovies;
-};
+    // console.log("movie", movie);
+    const createdMovies = [];
+  
+      const newMovie = Movie.create(movie);
+      createdMovies.push(newMovie);
+  
+    return createdMovies;
+  };
 
 export const findAllMovies = () => Movie.find();
 export const findMovieById = (movieId) => Movie.findById(movieId);
