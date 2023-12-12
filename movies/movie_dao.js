@@ -21,14 +21,8 @@ export const createMovieByAdmin = (movie) => {
   // console.log("movie", movie);
   const createdMovies = [];
 
-  const existingMovie = Movie.findOne({ title: movie.title });
-  console.log("existingMovie", existingMovie);
-  if (!existingMovie) {
     const newMovie = Movie.create(movie);
     createdMovies.push(newMovie);
-  } else {
-    console.log(`Movie with title '${movie.title}' already exists. Skipping.`);
-  }
 
   return createdMovies;
 };
